@@ -45,8 +45,8 @@ router.delete("/:id", (req, res) => {
   const postId = req.params.id;
   postDb
     .remove(postId) // returns count of posts deleted
-    .then(post => {
-      if (post) {
+    .then(deleted => {
+      if (deleted) {
         // if post exists
         res.status(200).json({ message: `Post ${postId} has been deleted` });
       } else {
@@ -61,7 +61,21 @@ router.delete("/:id", (req, res) => {
     });
 });
 
-router.put("/:id", (req, res) => {});
+// requires middleware for user? {text: "something", user_id: 1}
+
+router.put("/:id", (req, res) => {
+  const postId = req.params.id;
+  const updatedPost = req.body;
+  postDb
+    .update(postId, updatedPost) // returns count of updated posts
+    .then(updated => {
+      if (updated) {
+        res.status(200).json({ message: `Post ${postId} has been updated` });
+      } else {
+        res.status(404).json({ message: `Post ${postId} does not exist` });
+      }
+    });
+});
 
 // custom middleware
 
