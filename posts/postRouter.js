@@ -20,7 +20,28 @@ router.get("/", (req, res) => {
     });
 });
 
-router.get("/:id", (req, res) => {});
+router.get("/:id", (req, res) => {
+  const postId = req.params.id;
+  postDb
+    .getById(postId)
+    .then(post => {
+      if (post) {
+        res.status(200).json(post);
+      } else {
+        res
+          .status(404)
+          .json({
+            message: `The post with the specified ID ${postId} does not exist.`
+          });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: `The information for post ${postId} could not be retrieved.`
+      });
+    });
+});
 
 router.delete("/:id", (req, res) => {});
 
