@@ -2,27 +2,16 @@
 
 In this challenge, you build an API and write custom middleware that satisfies the requirements listed under the `Minimum Viable Product` section.
 
-## Project Set Up
-
-- [ ] Create a forked copy of this project.
-- [ ] Add your project manager as collaborator on Github.
-- [ ] Clone your OWN version of the repository.
-- [ ] Create a new branch: git checkout -b `<firstName-lastName>`.
-- [ ] Implement the project on your newly created `<firstName-lastName>` branch, committing changes regularly.
-- [ ] Push commits: git push origin `<firstName-lastName>`.
-
-Follow these steps for completing your project.
-
-- [ ] Submit a Pull-Request to merge <firstName-lastName> Branch into master (student's Repository). **Please don't merge your own pull request**
-- [ ] Add your project manager as a reviewer on the pull-request
-- [ ] Your project manager will count the project as complete by merging the branch back into master.
-- [ ] Do your magic!
-
 ## Minimum Viable Product
 
 1. Write and implement four custom `middleware` functions, detailed below.
-1. Build an API to let clients perform CRUD operations on `users`.
-1. Add endpoints to retrieve the list of `posts` for a `user` and to store a new `post` for a `user`.
+2. Build an API to let clients perform CRUD operations on `users`.
+3. Add endpoints to retrieve the list of `posts` for a `user` and to store a new `post` for a `user`.
+
+### My steps
+
+- `npm install` to download dependencies from package.json (was already done)
+-
 
 #### Custom Middleware Requirements
 
@@ -39,9 +28,9 @@ Follow these steps for completing your project.
 
 - `validateUser()`
 
-  - `validateUser` validates the `body` on a request to create a new user
-  - if the request `body` is missing, cancel the request and respond with status `400` and `{ message: "missing user data" }`
-  - if the request `body` is missing the required `name` field, cancel the request and respond with status `400` and `{ message: "missing required name field" }`
+  [x] `validateUser` validates the `body` on a request to create a new user
+  [x] if the request `body` is missing, cancel the request and respond with status `400` and `{ message: "missing user data" }`
+  [x] if the request `body` is missing the required `name` field, cancel the request and respond with status `400` and `{ message: "missing required name field" }`
 
 - `validatePost()`
   - `validatePost` validates the `body` on a request to create a new post
