@@ -20,6 +20,6 @@ function logger(req, res, next) {
   next();
 }
 
-// server.use(logger);
+server.use(logger);
 
 module.exports = server;

@@ -10,7 +10,7 @@ In this challenge, you build an API and write custom middleware that satisfies t
 
 ### My steps
 
-- `npm install` to download dependencies from package.json (was already done)
+- `npm install` to download dependencies from package.json
 -
 
 #### Custom Middleware Requirements
