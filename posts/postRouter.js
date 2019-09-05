@@ -28,11 +28,9 @@ router.get("/:id", (req, res) => {
       if (post) {
         res.status(200).json(post);
       } else {
-        res
-          .status(404)
-          .json({
-            message: `The post with the specified ID ${postId} does not exist.`
-          });
+        res.status(404).json({
+          message: `The post with the specified ID ${postId} does not exist.`
+        });
       }
     })
     .catch(err => {
@@ -43,7 +41,25 @@ router.get("/:id", (req, res) => {
     });
 });
 
-router.delete("/:id", (req, res) => {});
+router.delete("/:id", (req, res) => {
+  const postId = req.params.id;
+  postDb
+    .remove(postId) // returns count of posts deleted
+    .then(post => {
+      if (post) {
+        // if post exists
+        res.status(200).json({ message: `Post ${postId} has been deleted` });
+      } else {
+        // if post does not exist
+        res.status(404).json({
+          error: `Post ${postId} does not exist.`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).json({ error: "The post could not be removed" });
+    });
+});
 
 router.put("/:id", (req, res) => {});
 
