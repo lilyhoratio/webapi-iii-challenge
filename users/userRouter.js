@@ -3,10 +3,32 @@ const userDb = require("./userDb.js");
 
 const router = express.Router();
 
-router.post("/", (req, res) => {});
+// USER ENDPOINTS
+// ================================================
 
+// ADD NEW USER - done (was getting 500 error without .json() middleware)
+router.post("/", (req, res) => {
+  const user = req.body;
+
+  userDb
+    .insert(user)
+    .then(newUser => {
+      res.status(201).json(newUser);
+    })
+    .catch(err => {
+      console.log(err);
+      res
+        .status(500)
+        .json({ error: "The users' information could not be added." });
+    });
+});
+
+// ADD post for a user (middleware on it)
+// ================================================
 router.post("/:id/posts", (req, res) => {});
 
+// GET ALL USERS - done
+// ================================================
 router.get("/", (req, res) => {
   userDb
     .get()
@@ -21,6 +43,8 @@ router.get("/", (req, res) => {
     });
 });
 
+// GET A USER - done
+// ================================================
 router.get("/:id", (req, res) => {
   const userId = req.params.id;
 
@@ -36,6 +60,8 @@ router.get("/:id", (req, res) => {
     );
 });
 
+// GET A USER'S POSTS - done
+// ================================================
 router.get("/:id/posts", (req, res) => {
   const userId = req.params.id;
 
@@ -51,6 +77,8 @@ router.get("/:id/posts", (req, res) => {
     );
 });
 
+// DELETE A USER - done
+// ================================================
 router.delete("/:id", (req, res) => {
   const userId = req.params.id;
 
@@ -70,9 +98,26 @@ router.delete("/:id", (req, res) => {
     );
 });
 
-router.put("/:id", (req, res) => {});
+// EDIT A USER - done
+// ================================================
+router.put("/:id", (req, res) => {
+  const userId = req.params.id;
+  const updatedUser = req.body;
 
-//custom middleware
+  userDb
+    .update(userId, updatedUser)
+    .then(updated => {
+      if (updated) {
+        res.status(200).json({ message: `User ${userId} has been updated` });
+      } else {
+        res.status(404).json({ message: `User ${userId} does not exist` });
+      }
+    })
+    .catch(err => console.log(err));
+});
+
+// CUSTOM MIDDLEWARE
+// ================================================
 
 function validateUserId(req, res, next) {
   console.log("user id", req.params.id);
@@ -84,6 +129,8 @@ function validateUser(req, res, next) {
     res.status(400).json({ message: "missing user data" });
   } else if (!req.body.name) {
     res.status(400).json({ message: "missing required name field" });
+  } else {
+    req.body = { name };
   }
 }
 

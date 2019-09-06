@@ -3,8 +3,9 @@ const postDb = require("./postDb.js");
 
 const router = express.Router();
 
-router.use(express.json());
+router.use(express.json()); // for requests only
 
+// GET ALL POSTS
 router.get("/", (req, res) => {
   postDb
     .get()
@@ -20,6 +21,7 @@ router.get("/", (req, res) => {
     });
 });
 
+// GET A POST
 router.get("/:id", (req, res) => {
   const postId = req.params.id;
   postDb
@@ -41,6 +43,7 @@ router.get("/:id", (req, res) => {
     });
 });
 
+// DELETE A POST
 router.delete("/:id", (req, res) => {
   const postId = req.params.id;
   postDb
@@ -63,6 +66,7 @@ router.delete("/:id", (req, res) => {
 
 // requires middleware for user? {text: "something", user_id: 1}
 
+// EDIT A POST
 router.put("/:id", (req, res) => {
   const postId = req.params.id;
   const updatedPost = req.body;
@@ -72,7 +76,7 @@ router.put("/:id", (req, res) => {
       if (updated) {
         res.status(200).json({ message: `Post ${postId} has been updated` });
       } else {
-        res.status(404).json({ message: `Post ${postId} does not exist` });
+        res.status(404).json({ message: `User ${userId} does not exist` });
       }
     });
 });
