@@ -126,11 +126,15 @@ router.put("/:id", validateUserId, validateUser, (req, res) => {
   userDb
     .update(userId, updatedUser) // updatedUser ==> { name } b/c it avoids throwing errors when a client provides extra data you don't need
     .then(updated => {
+      // v1 - without middleware - if/else check to see if exists
       // if (updated) { // remove b/c added middleware
-      res.status(200).json({ message: `User ${userId} has been updated` });
+      // res.status(200).json({ message: `User ${userId} has been updated` });
       // } else {
       //   res.status(404).json({ message: `User ${userId} does not exist` });
       // }
+
+      // v2 - updated db update function to return user info
+      res.status(200).json(updated);
     })
     .catch(err => {
       console.log(err);
