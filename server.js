@@ -18,7 +18,7 @@ function logger(req, res, next) {
       req.url
     }\nDate:\t${Date.now()}\n\n`
   );
-  // next();
+  next();
 }
 
 server.use(logger); // need middleware before endpoints
